@@ -1,0 +1,48 @@
+{% extends 'base/index.html' %}
+{% block title %} Update Notation {% endblock %}
+
+{% block content %}
+  <section id="update_notation_section" class="update_notation_section">
+    <div class="container">
+      <div class="row">
+        <form action="{% url 'update_notation' notation.id %}" method="POST">
+        {% csrf_token %}
+           <div class="mb-3 row">
+            <label for="notation-title" class="form-check-label col-form-label" >
+              Title:
+              <input type="text" value="{{notation.title}}" id="notation-title" name="title" class="form-control">
+            </label>
+           </div>
+          <div class="mb-3 row">
+            <label for="notation-text" class="form-check-label" >
+              Text:
+                <textarea id="notation-text" name="text" class="form-control">{{notation.text}}</textarea>
+            </label>
+          </div>
+          <div class="mb-3 row">
+            <label for="notation-reminder" class="form-check-label" >
+              Reminder:
+              <input type="date" value="{{notation.reminder|date:'Y-m-d'}}" name="reminder" id="notation-reminder" class="form-control">
+            </label>
+          </div>
+          <div class="md-3 row">
+            <label for="notation-category">
+              Category:
+              <select name="category" id="notation-category" class="form-select">
+                {% for category in categories %}
+                  {%if notation.category|cut:' ' == category.title %}
+                    <option value="{{category.slug}}" selected>{{category.title}}</option>
+                  {% else %}
+                    <option value="{{category.slug}}">{{category.title}}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            </label>
+          </div>
+          <br>
+          <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+      </div>
+    </div>
+  </section>
+{% endblock %}

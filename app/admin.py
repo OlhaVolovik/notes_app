@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from app.models import Category, Notation
+
+admin.site.register(Category)
+admin.site.register(Notation)

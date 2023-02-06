@@ -1,0 +1,20 @@
+{% extends 'base/index.html' %}
+{% block title %} Notation {% endblock %}
+
+{% block content %}
+    <div>
+        <p>This is {{category}} category</p>
+        <p>Notation Name: {{notation.title}}</p>
+        <p>Notation Text: {{notation.text}}</p>
+        <p>Reminder: {{notation.reminder}}</p>
+
+<!--        <div>-->
+<!--            Form-->
+<!--            <form action="{% url 'create_notation' %}" method="post">-->
+<!--                {% csrf_token %}-->
+<!--                {{ form }}-->
+<!--                <input type="submit" value="Submit">-->
+<!--            </form>-->
+<!--        </div>-->
+    </div>
+{% endblock %}

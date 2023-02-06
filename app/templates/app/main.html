@@ -1,0 +1,59 @@
+{% extends 'base/index.html' %}
+{% block content %}
+<section id="notation-tabs" class="notation-tabs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <nav>
+                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                          {% for category, notations in categories.items %}
+                            <a href='#' class="nav-item nav-link{% if category.id == 1 %} active{% endif %}" id="nav-{{category.slug}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{category.slug}}" type="button" role="tab" aria-controls="nav-{{category.slug}}" aria-selected="{% if category.id == 1 %} true{% endif %}">
+                                {{ category.title }}
+                            </a>
+                          {% endfor %}
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    {% for category, notations in categories.items %}
+                      <div class="tab-pane fade {% if category.id == 1 %} show active{% endif %}" id="nav-{{category.slug}}" role="tabpanel" aria-labelledby="nav-{{category.slug}}-tab">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Text</th>
+                                    <th>Reminder date</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for notation in notations %}
+                                <tr>
+                                     <td>{{notation.title}}</td>
+                                     <td>{{notation.text}}</td>
+                                     <td>{{notation.reminder}}</td>
+                                    {% if user.is_authenticated %}
+                                     <td>
+                                         <a href="{% url 'update_notation' notation.id %}">Edit</a>
+                                     </td>
+                                     <td>
+                                          <a href="{% url 'delete_notation' notation.id %}">Delete</a>
+                                     </td>
+                                    {% endif%}
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% if user.is_authenticated %}
+                <div class="col-md-12">
+                    <a class="btn btn-primary" href="{% url 'create_notation' %}">Add new notation</a>
+                </div>
+            {% endif%}
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base/index.html' %}
+{% block title %} Create Notation {% endblock %}
+
+{% block content %}
+  <section id="create_notation_section" class="create_notation_section">
+    <div class="container">
+      <div class="row">
+            <h3>Add new notation: </h3>
+            <form action="{% url 'create_notation' %}" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <br>
+                <input type="submit" value="Submit" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+  </section>
+{% endblock %}
